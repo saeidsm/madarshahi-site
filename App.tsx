@@ -20,7 +20,9 @@ import {
   Moon,
   Sun,
   Rocket,
-  Maximize2
+  Maximize2,
+  ChevronLeft,
+  ChevronRight
 } from 'lucide-react';
 import { CONTENT } from './constants';
 import { Language, ProjectItem, TeachingItem } from './types';
@@ -110,33 +112,85 @@ const ImageSlider = ({ images }: { images: string[] }) => {
 };
 
 // Homepage Gallery Component
-const HomeGallery = () => {
+const HomeGallery = ({ title }: { title: string }) => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   // Generate image paths from 800.jpg to 811.jpg
   const images = Array.from({ length: 12 }, (_, i) => `pic/${800 + i}.jpg`);
 
+  const nextSlide = () => {
+    setCurrentIndex((prev) => (prev + 1) % images.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'ArrowRight') nextSlide();
+    if (e.key === 'ArrowLeft') prevSlide();
+  };
+
   return (
-    <div className="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto print:hidden">
-      <h3 className="text-2xl font-bold text-center mb-8 text-slate-800 dark:text-slate-100">Gallery</h3>
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        {images.map((src, index) => (
-          <div 
-            key={index} 
-            className="relative aspect-square cursor-pointer group rounded-xl overflow-hidden bg-slate-200 dark:bg-slate-800"
-            onClick={() => setSelectedImage(src)}
-          >
+    <section className="py-12 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto print:hidden">
+      <h3 className="text-2xl font-bold text-center mb-8 text-slate-800 dark:text-slate-100">{title}</h3>
+      
+      <div 
+        className="relative group rounded-2xl overflow-hidden shadow-2xl bg-slate-200 dark:bg-slate-800"
+        onKeyDown={handleKeyDown}
+        tabIndex={0}
+      >
+        <div className="aspect-[4/3] md:aspect-video relative w-full">
             <img 
-              src={src} 
-              alt={`Gallery ${index}`} 
-              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-              onError={(e) => { e.currentTarget.style.display = 'none'; }}
+              src={images[currentIndex]} 
+              alt={`Saeid Madarshahi Gallery Image ${currentIndex + 1}`} 
+              className="w-full h-full object-cover transition-opacity duration-500"
+              onError={(e) => { e.currentTarget.src = "https://picsum.photos/800/600"; }}
             />
-            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
-               <Maximize2 className="text-white drop-shadow-md" />
+            
+            {/* Overlay for Lightbox trigger */}
+            <div 
+               className="absolute inset-0 bg-black/0 hover:bg-black/10 transition-colors cursor-zoom-in flex items-center justify-center group/overlay"
+               onClick={() => setSelectedImage(images[currentIndex])}
+            >
+               <Maximize2 className="text-white opacity-0 group-hover/overlay:opacity-100 transition-opacity drop-shadow-md transform scale-75 group-hover/overlay:scale-100 duration-200" size={48} />
             </div>
-          </div>
-        ))}
+
+            {/* Navigation Buttons */}
+            <div className="absolute inset-0 pointer-events-none flex items-center justify-between px-4">
+                <button 
+                  onClick={(e) => { e.stopPropagation(); prevSlide(); }}
+                  className="pointer-events-auto p-3 rounded-full bg-white/10 hover:bg-white/30 text-white backdrop-blur-md transition-all transform hover:scale-110 shadow-lg border border-white/20"
+                  aria-label="Previous Image"
+                >
+                  <ChevronLeft size={24} className="rotate-180" />
+                </button>
+                <button 
+                  onClick={(e) => { e.stopPropagation(); nextSlide(); }}
+                  className="pointer-events-auto p-3 rounded-full bg-white/10 hover:bg-white/30 text-white backdrop-blur-md transition-all transform hover:scale-110 shadow-lg border border-white/20"
+                  aria-label="Next Image"
+                >
+                  <ChevronRight size={24} className="rotate-180" />
+                </button>
+            </div>
+        </div>
+        
+        {/* Indicators */}
+        <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2 z-10">
+            {images.map((_, idx) => (
+              <button
+                key={idx}
+                onClick={(e) => { e.stopPropagation(); setCurrentIndex(idx); }}
+                className={`transition-all duration-300 rounded-full shadow-sm ${
+                  idx === currentIndex 
+                    ? 'bg-white w-8 h-2' 
+                    : 'bg-white/50 w-2 h-2 hover:bg-white/80'
+                }`}
+                aria-label={`Go to slide ${idx + 1}`}
+              />
+            ))}
+        </div>
       </div>
 
       {/* Lightbox */}
@@ -159,7 +213,7 @@ const HomeGallery = () => {
           />
         </div>
       )}
-    </div>
+    </section>
   );
 };
 
@@ -179,7 +233,60 @@ const App: React.FC = () => {
   useEffect(() => {
     document.documentElement.lang = lang;
     document.documentElement.dir = dir;
-  }, [lang, dir]);
+    
+    // Dynamic SEO Metadata
+    const title = `${content.hero.name} | ${content.hero.role}`;
+    document.title = title;
+    
+    // Update description meta tag if exists
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) {
+        metaDesc.setAttribute("content", lang === 'fa' 
+            ? "مروری بر سوابق و عملکرد سعید مادرشاهی، مهندس نما و فعال حوزه ساختمان و صنعت" 
+            : "Overview of the background and performance of Saeid Madarshahi, Facade Engineer and Construction Industry Activist.");
+    }
+
+  }, [lang, dir, content]);
+
+  // Schema.org JSON-LD Injection
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.text = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Saeid Sadat Madarshahi",
+      "alternateName": "Saeid Madarshahi",
+      "url": "https://madarshahi.com",
+      "image": "https://madarshahi.com/pic/1001.jpg",
+      "jobTitle": "CEO & Facade Engineering Expert",
+      "worksFor": {
+        "@type": "Organization",
+        "name": "Ziggurat Sustainable Solutions"
+      },
+      "alumniOf": [
+        {
+            "@type": "CollegeOrUniversity",
+            "name": "Sprott School of Business - Carleton University"
+        },
+        {
+            "@type": "CollegeOrUniversity",
+            "name": "Azad University of Mashhad"
+        }
+      ],
+      "sameAs": [
+        "https://www.linkedin.com/in/madarshahi",
+        "https://www.aparat.com/facadeengineering",
+        "mailto:saeedsm@Gmail.com"
+      ],
+      "description": "Experienced Civil Engineer and Business Administrator specializing in Facade Engineering and Business Development."
+    });
+    document.head.appendChild(script);
+
+    return () => {
+      document.head.removeChild(script);
+    };
+  }, []);
 
   useEffect(() => {
     if (isDarkMode) {
@@ -471,26 +578,25 @@ const App: React.FC = () => {
                  <div className="absolute inset-0 bg-accent/10 dark:bg-blue-500/10 rounded-full blur-2xl transform translate-x-4 translate-y-4"></div>
                  <img 
                    src="pic/1001.jpg" 
-                   alt="Saeid Sadat Madarshahi" 
+                   alt="Saeid Sadat Madarshahi - Facade Engineering Expert" 
                    className="w-full h-full object-cover rounded-full border-4 border-white dark:border-slate-800 shadow-2xl relative z-10"
-                   onError={(e) => { e.currentTarget.src = "https://picsum.photos/400/400"; }}
                  />
                </div>
              </div>
            </section>
            
-           <HomeGallery />
+           <HomeGallery title={lang === 'fa' ? "حبسِ خاطرات" : "Gallery"} />
            </>
           } />
 
           <Route path="/about" element={
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
               <SectionHeader icon={Briefcase} title={content.about.title} />
-              <div className="bg-white dark:bg-darkcard p-8 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800">
+              <article className="bg-white dark:bg-darkcard p-8 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800">
                 <p className="text-lg text-slate-600 dark:text-slate-300 leading-8 text-justify">
                   {content.about.text}
                 </p>
-              </div>
+              </article>
               
               <h3 className="text-2xl font-bold text-center mt-12 dark:text-white">{content.education.title}</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
@@ -520,7 +626,7 @@ const App: React.FC = () => {
               <SectionHeader icon={Building} title={content.experience.title} />
               <div className="mt-12 space-y-8">
                 {content.experience.items.map((job, idx) => (
-                  <div key={idx} className="bg-white dark:bg-darkcard p-8 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 hover:shadow-md transition-shadow relative overflow-hidden group">
+                  <article key={idx} className="bg-white dark:bg-darkcard p-8 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 hover:shadow-md transition-shadow relative overflow-hidden group">
                     <div className="absolute top-0 left-0 w-1 h-full bg-slate-200 dark:bg-slate-700 group-hover:bg-accent dark:group-hover:bg-blue-500 transition-colors"></div>
                     <div className="flex flex-col md:flex-row md:items-center justify-between mb-4">
                       <div>
@@ -539,7 +645,7 @@ const App: React.FC = () => {
                         </li>
                       ))}
                     </ul>
-                  </div>
+                  </article>
                 ))}
               </div>
             </div>
@@ -562,7 +668,7 @@ const App: React.FC = () => {
               <div className="mt-12 space-y-8">
                 {/* Highlighted Startup */}
                 {content.startups.items.filter(i => i.isHighlight).map((project, idx) => (
-                   <div key={`highlight-${idx}`} className="bg-gradient-to-r from-blue-50 to-white dark:from-blue-900/20 dark:to-darkcard border-2 border-accent dark:border-blue-500 rounded-3xl p-8 md:p-12 shadow-xl transform hover:scale-[1.01] transition-transform">
+                   <article key={`highlight-${idx}`} className="bg-gradient-to-r from-blue-50 to-white dark:from-blue-900/20 dark:to-darkcard border-2 border-accent dark:border-blue-500 rounded-3xl p-8 md:p-12 shadow-xl transform hover:scale-[1.01] transition-transform">
                       <div className="flex flex-col md:flex-row gap-8 items-center">
                          <div className="w-full md:w-1/2">
                             <div className="relative rounded-2xl overflow-hidden shadow-lg aspect-video">
@@ -582,7 +688,7 @@ const App: React.FC = () => {
                              )}
                          </div>
                       </div>
-                   </div>
+                   </article>
                 ))}
                 
                 {/* Other Startups */}
@@ -601,7 +707,7 @@ const App: React.FC = () => {
               
               <div className="mt-12 grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {content.inventions.items.map((item, idx) => (
-                  <div key={idx} className="flex flex-col bg-slate-800 dark:bg-slate-900 rounded-2xl overflow-hidden shadow-xl">
+                  <article key={idx} className="flex flex-col bg-slate-800 dark:bg-slate-900 rounded-2xl overflow-hidden shadow-xl">
                      <div className="w-full relative">
                         {item.videoEmbed ? (
                             <AparatEmbed html={item.videoEmbed} />
@@ -628,7 +734,7 @@ const App: React.FC = () => {
                           </a>
                         )}
                      </div>
-                  </div>
+                  </article>
                 ))}
               </div>
             </div>
@@ -650,12 +756,12 @@ const App: React.FC = () => {
               <SectionHeader icon={BookOpen} title={content.publications.title} />
               <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
                 {content.publications.items.map((pub, idx) => (
+                  <article key={idx} className="group">
                   <a 
-                    key={idx} 
                     href={pub.link} 
                     target="_blank" 
                     rel="noreferrer"
-                    className="flex flex-col bg-white dark:bg-darkcard rounded-xl border border-slate-200 dark:border-slate-800 hover:border-accent dark:hover:border-blue-500 hover:shadow-lg transition-all overflow-hidden"
+                    className="flex flex-col h-full bg-white dark:bg-darkcard rounded-xl border border-slate-200 dark:border-slate-800 hover:border-accent dark:hover:border-blue-500 hover:shadow-lg transition-all overflow-hidden"
                   >
                     <div className="h-48 w-full bg-slate-100 dark:bg-slate-800 relative">
                       {pub.image ? (
@@ -677,6 +783,7 @@ const App: React.FC = () => {
                        </div>
                     </div>
                   </a>
+                  </article>
                 ))}
               </div>
             </div>
@@ -687,7 +794,7 @@ const App: React.FC = () => {
               <SectionHeader icon={HeartHandshake} title={content.civil.title} />
               <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8">
                 {content.civil.items.map((item, idx) => (
-                  <div key={idx} className="bg-slate-50 dark:bg-darkcard p-6 rounded-2xl flex flex-col md:flex-row gap-6 items-center md:items-start hover:bg-white dark:hover:bg-slate-800 hover:shadow-xl transition-all border border-slate-100 dark:border-slate-800">
+                  <article key={idx} className="bg-slate-50 dark:bg-darkcard p-6 rounded-2xl flex flex-col md:flex-row gap-6 items-center md:items-start hover:bg-white dark:hover:bg-slate-800 hover:shadow-xl transition-all border border-slate-100 dark:border-slate-800">
                     <div className="w-full md:w-1/3 flex-shrink-0">
                        <div className="aspect-square rounded-xl overflow-hidden bg-slate-200 dark:bg-slate-700">
                           <img src={item.image} className="w-full h-full object-cover" onError={(e) => {e.currentTarget.src = "https://picsum.photos/300/300"}} alt={item.title} />
@@ -703,7 +810,7 @@ const App: React.FC = () => {
                         </a>
                       )}
                     </div>
-                  </div>
+                  </article>
                 ))}
               </div>
             </div>
@@ -759,7 +866,7 @@ const SectionHeader: React.FC<{ icon: React.ElementType, title: string }> = ({ i
 );
 
 const ProjectCard: React.FC<{ item: ProjectItem }> = ({ item }) => (
-  <div className="group bg-white dark:bg-darkcard rounded-2xl overflow-hidden border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 hover:scale-[1.02] flex flex-col h-full">
+  <article className="group bg-white dark:bg-darkcard rounded-2xl overflow-hidden border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 hover:scale-[1.02] flex flex-col h-full">
     <div className="relative">
       {item.videoEmbed ? (
           <AparatEmbed html={item.videoEmbed} />
@@ -792,11 +899,11 @@ const ProjectCard: React.FC<{ item: ProjectItem }> = ({ item }) => (
         </a>
       )}
     </div>
-  </div>
+  </article>
 );
 
 const TeachingCard: React.FC<{ item: TeachingItem }> = ({ item }) => (
-  <div className="bg-white dark:bg-darkcard p-6 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm hover:border-accent/50 dark:hover:border-blue-500/50 transition-colors flex flex-col h-full">
+  <article className="bg-white dark:bg-darkcard p-6 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm hover:border-accent/50 dark:hover:border-blue-500/50 transition-colors flex flex-col h-full">
     {item.videoEmbed ? (
        <div className="-mx-6 -mt-6 mb-4 rounded-t-2xl overflow-hidden">
           <AparatEmbed html={item.videoEmbed} />
@@ -827,7 +934,7 @@ const TeachingCard: React.FC<{ item: TeachingItem }> = ({ item }) => (
         اطلاعات بیشتر <ExternalLink size={14} />
       </a>
     )}
-  </div>
+  </article>
 );
 
 export default AppWrapper;
