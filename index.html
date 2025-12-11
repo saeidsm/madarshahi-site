@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Saeid Sadat Madarshahi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Vazirmatn for Persian, Inter for English -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+      /* Local Font Definitions */
+      @font-face {
+        font-family: 'VazirmatnLocal';
+        src: url('pic/Vazirmatn-Regular.woff2') format('woff2');
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+      }
+      
+      @font-face {
+        font-family: 'VazirmatnLocal';
+        src: url('pic/Vazirmatn-Bold.woff2') format('woff2');
+        font-weight: 700;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      /* Smooth scrolling */
+      html {
+        scroll-behavior: smooth;
+      }
+      
+      /* Print Styles */
+      @media print {
+        @page {
+          margin: 1cm;
+          size: A4 portrait;
+        }
+        
+        body {
+          background-color: white !important;
+          color: black !important;
+          -webkit-print-color-adjust: exact !important;
+          print-color-adjust: exact !important;
+        }
+
+        /* Hide interactive elements during print */
+        .no-print {
+          display: none !important;
+        }
+
+        /* Ensure containers don't break awkwardly */
+        .print-break-inside-avoid {
+          break-inside: avoid;
+          page-break-inside: avoid;
+        }
+
+        /* Force visibility for print view container */
+        .print-only-visible {
+          display: block !important;
+        }
+        
+        /* Reset styles for printing */
+        .shadow-lg, .shadow-xl, .shadow-sm {
+          box-shadow: none !important;
+        }
+        
+        .bg-slate-900 {
+          color: black !important; 
+          background: none !important;
+        }
+
+        a {
+          text-decoration: underline;
+          color: black !important;
+        }
+      }
+    </style>
+    <script>
+      tailwind.config = {
+        darkMode: 'class', // Enable manual dark mode toggling
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+              // Prioritize local font, fallback to generic sans-serif if loading fails
+              persian: ['VazirmatnLocal', 'Vazirmatn', 'sans-serif'],
+            },
+            colors: {
+              primary: '#0f172a', // Slate 900
+              accent: '#2563eb', // Blue 600
+              secondary: '#64748b', // Slate 500
+              darkbg: '#0B1120', // Very dark slate for dark mode
+              darkcard: '#1E293B', // Darker slate for cards
+            },
+            animation: {
+              'fade-in-up': 'fadeInUp 0.5s ease-out',
+              'fade-in-down': 'fadeInDown 0.3s ease-out',
+            },
+            keyframes: {
+              fadeInUp: {
+                '0%': { opacity: '0', transform: 'translateY(20px)' },
+                '100%': { opacity: '1', transform: 'translateY(0)' },
+              },
+              fadeInDown: {
+                '0%': { opacity: '0', transform: 'translateY(-10px)' },
+                '100%': { opacity: '1', transform: 'translateY(0)' },
+              }
+            }
+          }
+        }
+      }
+    </script>
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@18.3.1",
+    "react/": "https://esm.sh/react@18.3.1/",
+    "react-dom": "https://esm.sh/react-dom@18.3.1",
+    "react-dom/": "https://esm.sh/react-dom@18.3.1/",
+    "lucide-react": "https://esm.sh/lucide-react@0.460.0?deps=react@18.3.1",
+    "react-router-dom": "https://esm.sh/react-router-dom@6.22.3?deps=react@18.3.1,react-dom@18.3.1"
+  }
+}
+</script>
+</head>
+  <body class="bg-slate-50 text-slate-900 dark:bg-darkbg dark:text-slate-100 transition-colors duration-300">
+    <div id="root"></div>
+  </body>
+</html>
