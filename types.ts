@@ -1,3 +1,4 @@
+
 export type Language = 'en' | 'fa';
 
 export interface LinkItem {
@@ -66,6 +67,7 @@ export interface ContentData {
     publications: string;
     civil: string;
     education: string;
+    sports: string;
   };
   hero: {
     name: string;
@@ -76,7 +78,7 @@ export interface ContentData {
   };
   about: {
     title: string;
-    text: string;
+    text: string[];
   };
   experience: {
     title: string;
@@ -109,6 +111,11 @@ export interface ContentData {
   civil: {
     title: string;
     items: ProjectItem[];
+  };
+  sports: {
+    title: string;
+    image: string;
+    description: string;
   };
   contact: {
     title: string;

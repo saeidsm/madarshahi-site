@@ -1,3 +1,4 @@
+
 import { ContentData, Language } from './types';
 
 export const CONTENT: Record<Language, ContentData> = {
@@ -12,7 +13,8 @@ export const CONTENT: Record<Language, ContentData> = {
       teaching: "Teaching & Seminars",
       publications: "Publications",
       civil: "Civil Activities",
-      education: "Education"
+      education: "Education",
+      sports: "Sports"
     },
     hero: {
       name: "Saeid Sadat Madarshahi",
@@ -23,7 +25,10 @@ export const CONTENT: Record<Language, ContentData> = {
     },
     about: {
       title: "About Me",
-      text: "I am an experienced Civil Engineer and Business Administrator specializing in Facade Engineering and Business Development. With a background ranging from project management in construction to developing high-tech solutions like BCI devices and energy-saving nano-coatings, I strive to integrate technical precision with strategic business vision. I have led major facade projects in Iran and contributed to academic research in Chaos Theory and Business."
+      text: [
+        "Saeid Madarshahi, as a specialized facade engineer and consultant and Vice Chairman of AlumGlass Tehran, is a prominent figure in the national facade industry. With an engineering perspective on architectural details, he focuses on industrialization and enhancing the quality of building skins. Relying on deep technical expertise in modern systems like unitized curtain walls and GFRC panels, he consistently strives to bridge the gap between ambitious architectural designs and execution realities through precise, standardized solutions.",
+        "Beyond his executive and consulting roles in landmark projects, he is deeply committed to education and the advancement of facade engineering knowledge. He actively shares his experience with the engineering community through lectures at events like the 'Facade Forum' and specialized training courses. The establishment of Ziggurat Sustainable Solutions, focusing on nanotechnology and protective coatings, highlights his pioneering approach to leveraging innovative technologies for enhanced durability and energy sustainability in the buildings of the future."
+      ]
     },
     experience: {
       title: "Professional Experience",
@@ -225,31 +230,6 @@ export const CONTENT: Record<Language, ContentData> = {
           description: "Glass shells and facade engineering.",
           link: "https://alumglass.com/portfolio/book_garden/",
           image: "pic/1008.jpg"
-        }
-      ]
-    },
-    startups: {
-      title: "Startups & Ventures",
-      items: [
-        {
-          title: "Ziggurat Solutions",
-          year: "Current Activity",
-          description: "My new startup focused on energy management in building skins. Providing innovative solutions for sustainable building envelopes.",
-          link: "https://zigguratsolutions.com/",
-          image: "pic/1025.jpg",
-          isHighlight: true
-        },
-        {
-          title: "Dukan Diet App (Chaghari)",
-          year: "2016-2019",
-          description: "A health startup inspired by the Dukan Diet. Helped over 20,000 users manage their weight on iOS and Android.",
-          image: "pic/1015.jpg"
-        },
-        {
-          title: "Ziggurat Consulting Services",
-          year: "2009",
-          description: "Consulting services for amusement parks, originally started as an import business. Launched the Tehran Ice Skating Project.",
-          image: "pic/1014.jpg"
         },
         {
           title: "Simorq Magazine",
@@ -265,10 +245,42 @@ export const CONTENT: Record<Language, ContentData> = {
         }
       ]
     },
-    inventions: {
-      title: "Inventions & Innovations",
+    startups: {
+      title: "Startups & Ventures",
       items: [
         {
+          title: "Ziggurat Solutions",
+          year: "Current Activity",
+          description: "My new startup focused on energy management in building skins. Providing innovative solutions for sustainable building envelopes.",
+          link: "https://zigguratsolutions.com/",
+          image: "pic/1025.jpg",
+          isHighlight: true
+        },
+        {
+          title: "AlumGlass Tehran",
+          year: "2007 - Present",
+          description: "Ownership of 35% shares and Member of the Board. Specialized Facade Consultant.",
+          link: "https://alumglass.com/",
+          image: "pic/1006.jpg"
+        },
+        {
+          title: "Dukan Diet App (Chaghari)",
+          year: "2016-2019",
+          description: "A health startup inspired by the Dukan Diet. Helped over 20,000 users manage their weight on iOS and Android.",
+          image: "pic/1015.jpg"
+        },
+        {
+          title: "Ziggurat Consulting Services",
+          year: "2009",
+          description: "Consulting services for amusement parks, originally started as an import business. Launched the Tehran Ice Skating Project.",
+          image: "pic/1014.jpg"
+        }
+      ]
+    },
+    inventions: {
+      title: "Inventions & Alchemy",
+      items: [
+         {
           title: "Cyclic Facade Testing Device",
           year: "Innovation",
           description: "Device for fatigue testing of facade panels and concrete shells.",
@@ -300,6 +312,24 @@ export const CONTENT: Record<Language, ContentData> = {
           description: "Heat-reducing nano-coating for energy management in buildings.",
           link: "https://zigguratsolutions.com",
           images: ["pic/1011-1.jpg", "pic/1011-2.jpg"]
+        },
+        {
+          title: "\"Cho Hasti Khosh Bash\" Rings",
+          year: "Art Project",
+          description: "Inspired by Khayyam's philosophy. Initially 3D printed with ABS, followed by mold making via 3D printing and casting in materials like silver and bronze.",
+          images: ["pic/1050-1.jpg", "pic/1050-2.jpg"]
+        },
+        {
+          title: "Mina Dome Planetarium Hardware & Software",
+          year: "2014",
+          description: "In collaboration with Goto Japan and their German partner from Sony. We linked 4 Sony 4K SRX110 projectors with 32 servers equipped with K-series GPUs to produce a full-dome 3D image. Content production included dubbing (Avaye Symphony) and creating new Iranian cultural content.",
+          images: ["pic/1051.jpg"]
+        },
+        {
+          title: "Concrete Formwork with Kuka Robot",
+          year: "Innovation",
+          description: "Using a Kuka robot as a milling tool for complex concrete parts. First utilized for the Fereshteh Pasargad Hotel (Zaha Hadid) project.",
+          images: ["pic/1052-1.jpg", "pic/1052-2.jpg"]
         }
       ]
     },
@@ -315,7 +345,7 @@ export const CONTENT: Record<Language, ContentData> = {
         },
         {
           type: 'paper',
-          title: "Investigating Chaos in Tehran Stock Exchange Index",
+          title: "Investigating Chaos Theory in Tehran Stock Exchange Index",
           authors: "A Moeini, M Ahrari, SS Madarshahi",
           year: "2007",
           link: "https://d1wqtxts1xzle7.cloudfront.net/109518839/article_31005_6e51fd93a625455e4f212d02db23c33a-libre.pdf",
@@ -324,7 +354,7 @@ export const CONTENT: Record<Language, ContentData> = {
         {
           type: 'paper',
           title: "The Proto-Fuse Project: Mutation in unconscious data",
-          description: "Methods to boost spatial creativity for architects.",
+          description: "Methods to boost spatial creativity for architects using EEG sensors.",
           link: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=p4zyhKEAAAAJ&citation_for_view=p4zyhKEAAAAJ:WF5omc3nYNoC",
           image: "pic/1042.jpg"
         },
@@ -369,17 +399,22 @@ export const CONTENT: Record<Language, ContentData> = {
         },
         {
           title: "ALS Association Founder",
-          year: "Ongoing",
+          year: "2014",
           description: "Co-founder and board member of the ALS support association.",
           image: "pic/1047.jpg"
         },
         {
-          title: "Facade Safety Advocate",
+          title: "Facade Safety, Sustainability & Engineering Activist",
           year: "Ongoing",
-          description: "Civil activist in the field of facade safety and energy consumption management.",
+          description: "Civil activist in the field of facade safety, sustainability, and engineering.",
           image: "pic/1048.jpg"
         }
       ]
+    },
+    sports: {
+      title: "Sports Activities",
+      image: "pic/sleeping.jpg",
+      description: ""
     },
     contact: {
       title: "Get In Touch",
@@ -395,11 +430,12 @@ export const CONTENT: Record<Language, ContentData> = {
       experience: "سوابق شغلی",
       projects: "پروژه‌ها",
       startups: "استارتاپ‌ها",
-      inventions: "اختراعات",
+      inventions: "ابداع‌ها",
       teaching: "تدریس و سمینار",
       publications: "انتشارات",
       civil: "فعالیت‌های مدنی",
-      education: "تحصیلات"
+      education: "تحصیلات",
+      sports: "فعالیت‌های ورزشی"
     },
     hero: {
       name: "سعید سادات مادرشاهی",
@@ -410,7 +446,10 @@ export const CONTENT: Record<Language, ContentData> = {
     },
     about: {
       title: "درباره من",
-      text: "سعید مادرشاهی، به عنوان مهندس و مشاور تخصصی نما و نایب رئیس مجموعه «آلومینیوم شیشه تهران»، چهره‌ای شناخته‌شده در صنعت نمای کشور است که با نگاهی مهندسی به جزئیات معماری، بر صنعتی‌سازی و ارتقای کیفیت پوسته‌های ساختمان تمرکز دارد. او با تکیه بر دانش فنی عمیق در سیستم‌های مدرن نظیر کرتین‌وال‌های یونیتایز و پنل‌های GFRC، همواره در تلاش است تا شکاف میان طرح‌های جاه‌طلبانه معماری و واقعیت‌های اجرایی را با راهکارهای دقیق و استاندارد پر کند. علاوه بر فعالیت‌های اجرایی و مشاوره‌ای در پروژه‌های شاخص، او دغدغه‌ای جدی برای آموزش و توسعه دانش مهندسی نما دارد و از طریق سخنرانی در رویدادهایی مانند «فاساد فروم» و برگزاری دوره‌های تخصصی، تجربیات خود را به جامعه مهندسی منتقل می‌کند. تأسیس مجموعه «راهکارهای پایدار زیگورات» با محوریت نانوتکنولوژی و پوشش‌های محافظ، نشان‌دهنده رویکرد پیشرو او در به‌کارگیری فناوری‌های نوین برای افزایش دوام و پایداری انرژی در ساختمان‌های آینده است."
+      text: [
+        "سعید مادرشاهی، به عنوان مهندس و مشاور تخصصی نما و نایب رئیس مجموعه «آلومینیوم شیشه تهران»، چهره‌ای شناخته‌شده در صنعت نمای کشور است که با نگاهی مهندسی به جزئیات معماری، بر صنعتی‌سازی و ارتقای کیفیت پوسته‌های ساختمان تمرکز دارد. او با تکیه بر دانش فنی عمیق در سیستم‌های مدرن نظیر کرتین‌وال‌های یونیتایز و پنل‌های GFRC، همواره در تلاش است تا شکاف میان طرح‌های جاه‌طلبانه معماری و واقعیت‌های اجرایی را با راهکارهای دقیق و استاندارد پر کند.",
+        "علاوه بر فعالیت‌های اجرایی و مشاوره‌ای در پروژه‌های شاخص، او دغدغه‌ای جدی برای آموزش و توسعه دانش مهندسی نما دارد و از طریق سخنرانی در رویدادهایی مانند «فاساد فروم» و برگزاری دوره‌های تخصصی، تجربیات خود را به جامعه مهندسی منتقل می‌کند. تأسیس مجموعه «راهکارهای پایدار زیگورات» با محوریت نانوتکنولوژی و پوشش‌های محافظ، نشان‌دهنده رویکرد پیشرو او در به‌کارگیری فناوری‌های نوین برای افزایش دوام و پایداری انرژی در ساختمان‌های آینده است."
+      ]
     },
     experience: {
       title: "سوابق شغلی",
@@ -611,31 +650,6 @@ export const CONTENT: Record<Language, ContentData> = {
           description: "پوسته‌های شیشه‌ای و مهندسی نما.",
           link: "https://alumglass.com/portfolio/book_garden/",
           image: "pic/1008.jpg"
-        }
-      ]
-    },
-    startups: {
-      title: "استارتاپ‌ها و سرمایه‌گذاری‌ها",
-      items: [
-        {
-          title: "راهکارهای پایدار زیگورات",
-          year: "فعالیت فعلی",
-          description: "تولید پوششی که شیشه‌های معمولی را به شیشه‌های سانرژی (کنترل‌کننده انرژی) تبدیل می‌کند و باعث کاهش مصرف انرژی در ساختمان می‌شود.",
-          link: "https://zigguratsolutions.com/",
-          image: "pic/1025.jpg",
-          isHighlight: true
-        },
-        {
-          title: "اپلیکیشن رژیم دوکان (چاقری)",
-          year: "۱۳۹۵-۱۳۹۸",
-          description: "استارتاپ حوزه سلامت با الهام از رژیم دوکان دایت. ارائه خدمات به بیش از ۲۰ هزار کاربر در iOS و اندروید برای مدیریت وزن.",
-          image: "pic/1015.jpg"
-        },
-        {
-          title: "خدمات مشاوره زیگورات (پروژه پاتیناژ تهران)",
-          year: "۱۳۸۸",
-          description: "تاسیس شرکت زیگورات برای واردات تجهیزات شهربازی و راه‌اندازی اولین پیست اسکیت یخ مصنوعی (Xtraice) در ایران. تجربه‌ای پرچالش با درس‌های بزرگ در مدیریت استارتاپ.",
-          image: "pic/1014.jpg"
         },
         {
           title: "مجله اینترنتی سیمرغ",
@@ -651,10 +665,42 @@ export const CONTENT: Record<Language, ContentData> = {
         }
       ]
     },
-    inventions: {
-      title: "اختراعات و نوآوری‌ها",
+    startups: {
+      title: "استارتاپ‌ها و سرمایه‌گذاری‌ها",
       items: [
         {
+          title: "راهکارهای پایدار زیگورات",
+          year: "فعالیت فعلی",
+          description: "تولید پوششی که شیشه‌های معمولی را به شیشه‌های سانرژی (کنترل‌کننده انرژی) تبدیل می‌کند و باعث کاهش مصرف انرژی در ساختمان می‌شود.",
+          link: "https://zigguratsolutions.com/",
+          image: "pic/1025.jpg",
+          isHighlight: true
+        },
+        {
+          title: "آلومینیوم شیشه تهران",
+          year: "۱۳۸۶ - تاکنون",
+          description: "مالکیت ۳۵٪ سهام و عضویت در هیئت مدیره. مشاور تخصصی نما.",
+          link: "https://alumglass.com/",
+          image: "pic/1006.jpg"
+        },
+        {
+          title: "اپلیکیشن رژیم دوکان (چاقری)",
+          year: "۱۳۹۵-۱۳۹۸",
+          description: "استارتاپ حوزه سلامت با الهام از رژیم دوکان دایت. ارائه خدمات به بیش از ۲۰ هزار کاربر در iOS و اندروید برای مدیریت وزن.",
+          image: "pic/1015.jpg"
+        },
+        {
+          title: "خدمات مشاوره زیگورات (پروژه پاتیناژ تهران)",
+          year: "۱۳۸۸",
+          description: "تاسیس شرکت زیگورات برای واردات تجهیزات شهربازی و راه‌اندازی اولین پیست اسکیت یخ مصنوعی (Xtraice) در ایران. تجربه‌ای پرچالش با درس‌های بزرگ در مدیریت استارتاپ.",
+          image: "pic/1014.jpg"
+        }
+      ]
+    },
+    inventions: {
+      title: "ابداع‌ها",
+      items: [
+         {
           title: "دستگاه تست سیکلیک نما",
           year: "نوآوری",
           description: "دستگاهی برای تست خستگی پنل‌های نما و پوسته‌های بتنی.",
@@ -686,6 +732,24 @@ export const CONTENT: Record<Language, ContentData> = {
           description: "پوشش نانو کاهنده گرما و مدیریت انرژی در ساختمان.",
           link: "https://zigguratsolutions.com",
           images: ["pic/1011-1.jpg", "pic/1011-2.jpg"]
+        },
+        {
+          title: "مجموعه انگشترهای «چو هستی خوش باش»",
+          year: "پروژه هنری",
+          description: "با الهام از فلسفه خیام که در ابتدا با ABS پرینت سه بعدی شد و در ادامه مجموعه با پرینت سه بعدی قالب سازی و با مواد مختلفی چون نقره و برنز ریخته گری شد.",
+          images: ["pic/1050-1.jpg", "pic/1050-2.jpg"]
+        },
+         {
+          title: "طراحی سخت افزار و نرم افزار آسمان نمای گنبد مینا",
+          year: "۱۳۹۳",
+          description: "با همراهی شرکت Goto Japan  و پارتنر آلمانی انها از شرکت سونی. در این پروژه ما ۴ پروژکتور 4K SRX110  رو با ۳۲ سرور با کارت گرافیک های سری K بهم لینک کردیم و یک تصویر سه بعدی تمام گنبدی تونستیم تولید کنیم. همچنین تولید محتوا رو در دستور کار قراردادیم که شامل دوبله محتوا با کمک شرکت آوای سمفونی و همچنین تولید محتوای جدید با فرهنگ ایرانی بود.",
+          images: ["pic/1051.jpg"]
+        },
+         {
+          title: "ساخت قالب بتنی با ربات کوکا",
+          year: "نوآوری",
+          description: "به عنوان راهکاری برای طراحی قطعات پیچیده تر بتنی ما از ربات کوکا به عنوان ابزار تراش قالب استفاده کردیم. اولین تجربه برای پروژه هتل فرشته پاسارگاد خانم زاها حدید بود.",
+          images: ["pic/1052-1.jpg", "pic/1052-2.jpg"]
         }
       ]
     },
@@ -701,7 +765,7 @@ export const CONTENT: Record<Language, ContentData> = {
         },
         {
           type: 'paper',
-          title: "بررسی آشوب در شاخص بورس اوراق بهادار تهران",
+          title: "بررسی تئوری آشوب در شاخص بورس اوراق بهادار تهران",
           authors: "علی معینی، مهدیahrari، سعید مادرشاهی",
           year: "۱۳۸۶",
           link: "https://d1wqtxts1xzle7.cloudfront.net/109518839/article_31005_6e51fd93a625455e4f212d02db23c33a-libre.pdf",
@@ -710,7 +774,7 @@ export const CONTENT: Record<Language, ContentData> = {
         {
           type: 'paper',
           title: "پروژه پروتو-فیوز: جهش در داده‌های ناخودآگاه",
-          description: "روش‌هایی برای ارتقای خلاقیت فضایی معماران.",
+          description: "روش‌هایی ارزیابی ارتقای خلاقیت فضایی معماران با بهره از سنسورهای EEG",
           link: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=p4zyhKEAAAAJ&citation_for_view=p4zyhKEAAAAJ:WF5omc3nYNoC",
           image: "pic/1042.jpg"
         },
@@ -755,15 +819,22 @@ export const CONTENT: Record<Language, ContentData> = {
         },
         {
           title: "موسس انجمن ALS",
-          year: "جاری",
-          description: "عضو هیئت موسس و همکاری در تاسیس انجمن حمایت از بیماران ALS."
+          year: "۱۳۹۳",
+          description: "عضو هیئت موسس و همکاری در تاسیس انجمن حمایت از بیماران ALS.",
+          image: "pic/1047.jpg"
         },
         {
-          title: "فعال ایمنی نما",
+          title: "فعال حوزه ایمنی، پایداری و مهندسی نما",
           year: "جاری",
-          description: "فعال مدنی در حوزه ایمنی نما و مدیریت مصرف انرژی."
+          description: "فعال مدنی در حوزه ایمنی نما و مدیریت مصرف انرژی.",
+          image: "pic/1048.jpg"
         }
       ]
+    },
+    sports: {
+      title: "فعالیت‌های ورزشی",
+      image: "pic/sleeping.jpg",
+      description: ""
     },
     contact: {
       title: "تماس با من",
